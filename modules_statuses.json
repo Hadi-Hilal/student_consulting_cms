@@ -1,0 +1,16 @@
+{
+    "Core": true,
+    "Settings": true,
+    "User": true,
+    "Role": true,
+    "FileManger": true,
+    "Subscriber": true,
+    "Contact": true,
+    "Page": true,
+    "Blog": true,
+    "Newsletter": true,
+    "Faq": true,
+    "Testimonial": true,
+    "Team": true,
+    "Academic": true
+}

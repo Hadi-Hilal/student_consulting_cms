@@ -1,0 +1,96 @@
+<?php
+
+namespace Modules\Page\Repositories;
+
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Config;
+use Modules\Core\Traits\FileTrait;
+use Modules\Page\Http\Requests\PageRequest;
+use Modules\Page\Models\Page;
+
+class PageModelRepository implements PageRepository
+{
+    use FileTrait;
+
+    private string $pageUploadPath = 'pages';
+
+    public function paginate(Request $request, array $columns = ['*']): LengthAwarePaginator
+    {
+        return Page::select($columns)->latest()
+            ->when($request->has('publish') and $request->query('publish'), function ($q) use ($request) {
+                $q->where('publish', $request->query('publish'));
+            })
+            ->when($request->has('type') and $request->query('type'), function ($q) use ($request) {
+                $q->where('type', $request->query('type'));
+            })->paginate(Config::get('core.page_size'));
+    }
+
+    public function store(PageRequest $request): bool
+    {
+        if ($request->has('img')) {
+            $path = $this->upload($request->file('img'), $this->pageUploadPath, $request->input('slug'));
+        } else {
+            session()->flash('error', __('The Image Is Required'));
+            return false;
+        }
+        $keywordsInput = $request->input('keywords');
+        $decodedData = json_decode($keywordsInput, true);
+        $valuesArray = array_column($decodedData, 'value');
+        $keywords = implode(', ', $valuesArray);
+
+        $request->merge([
+            'image' => $path,
+            'keywords' => $keywords,
+        ]);
+        try {
+            Page::create($request->all());
+            cache()->forget('pages');
+            return true;
+        } catch (Exception $exception) {
+            session()->flash('error', $exception->getMessage());
+        }
+        return false;
+    }
+
+    public function update(PageRequest $request, Page $page): bool
+    {
+        if ($request->has('img')) {
+            $path = $this->upload($request->file('img'), $this->pageUploadPath, $request->input('slug'), $page->image);
+            $request->merge([
+                'image' => $path,
+            ]);
+        }
+        $keywordsInput = $request->input('keywords');
+        $decodedData = json_decode($keywordsInput, true);
+        $valuesArray = array_column($decodedData, 'value');
+        $keywords = implode(', ', $valuesArray);
+
+        $request->merge([
+            'keywords' => $keywords,
+        ]);
+        try {
+            $page->update($request->all());
+            cache()->forget('pages');
+            return true;
+        } catch (Exception $exception) {
+            session()->flash('error', $exception->getMessage());
+        }
+        return false;
+    }
+
+    public function deleteMulti(array $ids): bool
+    {
+        try {
+            $pageImages = Page::whereIn('id', $ids)->pluck('image')->toArray();
+            Page::destroy($ids);
+            $this->deleteFile($pageImages);
+            cache()->forget('pages');
+            return true;
+        } catch (Exception $exception) {
+            session()->flash('error', $exception->getMessage());
+        }
+        return false;
+    }
+}

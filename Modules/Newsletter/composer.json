@@ -1,0 +1,29 @@
+{
+    "name": "hadi/newsletter",
+    "description": "",
+    "authors": [
+        {
+            "name": "Hadi Hilal",
+            "email": "hadi-hilal@hotmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Newsletter\\": "app/",
+            "Modules\\Newsletter\\Database\\Factories\\": "database/factories/",
+            "Modules\\Newsletter\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Newsletter\\Tests\\": "tests/"
+        }
+    }
+}
