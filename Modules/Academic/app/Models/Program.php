@@ -14,8 +14,8 @@ class Program extends Model
     use HasTranslations;
 
     public $appends = ['image_link'];
-    public $translatable = ['name'];
-    protected $fillable = ['image', 'name', 'lang'];
+    public $translatable = ['name' , 'keywords' , 'description' , 'content'];
+    protected $fillable = ['image', 'name', 'lang' , 'keywords' , 'description' , 'content'];
 
     public function levels(): BelongsToMany
     {

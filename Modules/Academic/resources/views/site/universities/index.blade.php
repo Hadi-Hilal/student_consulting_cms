@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <!--  ====================== Blogs =============================  -->
+    <!--  ====================== Universities =============================  -->
     <div class="podcast-area position-relative my-7 my-lg-10">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">

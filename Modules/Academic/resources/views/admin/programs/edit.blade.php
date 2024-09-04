@@ -194,9 +194,83 @@
         <!--end::Row-->
 
 
+
+        <!--begin::Row-->
+        <div class="row mb-8">
+            <!--begin::Col-->
+            <div class="col-xl-3">
+                <div class="fs-6 fw-bold mt-2 mb-3"><i
+                        class="bi bi-translate text-primary mx-1 "></i>{{__('Keywords')}} <span
+                        class="text-danger">*</span></div>
+            </div>
+            <!--end::Col-->
+            <!--begin::Col-->
+            <div class="col-xl-9 fv-row">
+                <input type="text" class="form-control form-control-solid" name="keywords" value="{{old('keywords', $program->keywords )}}"
+                       placeholder="keywords"/>
+
+            </div>
+        </div>
+        <!--end::Row-->
+
+
+        <!--begin::Row-->
+        <div class="row mb-8">
+            <!--begin::Col-->
+            <div class="col-xl-3">
+                <div class="fs-6 fw-bold mt-2 mb-3"><i
+                        class="bi bi-translate text-primary mx-1 "></i>{{__('Brief Description')}} <span
+                        class="text-danger">*</span></div>
+            </div>
+            <!--end::Col-->
+            <!--begin::Col-->
+            <div class="col-xl-9 fv-row">
+                <input type="text" class="form-control form-control-solid" name="description"
+                       value="{{old('description' , $program->description)}}"
+                       placeholder="its description"/>
+
+            </div>
+        </div>
+        <!--end::Row-->
+
+
+        <!--begin::Row-->
+        <div class="row mb-8">
+            <!--begin::Col-->
+            <div class="col-xl-3">
+                <div class="fs-6 fw-bold mt-2 mb-3"><i
+                        class="bi bi-translate text-primary mx-1 "></i>{{__('Content')}} <span
+                        class="text-danger">*</span></div>
+            </div>
+            <!--end::Col-->
+            <!--begin::Col-->
+            <div class="col-xl-9 fv-row">
+                  <textarea name="content" class="form-control form-control-solid "
+                            id="tinymce">{!! old('content', $program->content) !!}</textarea>
+
+            </div>
+        </div>
+        <!--end::Row-->
+
     </x-admin.create-card>
 @endsection
 
 @section('js')
+    <script src="https://cdn.tiny.cloud/1/{{Config::get('core.tinymce_key')}}/tinymce/7/tinymce.min.js"
+            referrerpolicy="origin"></script>
+    <script>
+        $(document).ready(function (e) {
+            tinymce.init({
+                selector: '#tinymce',
+                height: 900,
+                plugins: 'accordion autolink anchor code directionality fullscreen media emoticons image link lists media table preview',
+                toolbar: 'undo redo | blocks  fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat  preview',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                @if(app()->getLocale() == 'ar') language: 'ar', @endif
 
+            });
+        })
+
+    </script>
 @endsection

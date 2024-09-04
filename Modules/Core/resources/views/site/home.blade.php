@@ -112,7 +112,7 @@
                 <div class="section-title mb-3">
                     <h3 class="sepator2 m-0">{{__('University Programs')}}</h3>
                 </div>
-                <a href="" class="view-all">{{__('View All')}}</a>
+                <a href="{{route("programs.index")}}" class="view-all">{{__('View All')}}</a>
             </div>
             <div class="owl-carousel">
                 @foreach($programs as $program)

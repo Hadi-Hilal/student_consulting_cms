@@ -38,6 +38,9 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center">
+                                    <div class="mx-1">
+                                        <p>{{__('University Price Start From')}}</p>
+                                    </div>
                                     <div class="mx-2">
                                         <del class="text-danger">{{$university->disc_price}} $</del>
                                         <p class="mb-0 text-success fw-bold">{{$university->price}} $</p>

@@ -15,7 +15,10 @@ class ProgramRequest extends FormRequest
             'img' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'name' => 'required|string|min:3',
             'lang' => 'required',
-            'level' => 'required'
+            'level' => 'required',
+            'keywords' => 'required',
+            'description' => 'required',
+            'content' => 'required|min:10',
         ];
     }
 

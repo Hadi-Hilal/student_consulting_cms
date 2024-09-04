@@ -8,6 +8,7 @@
     "Program Name": "إسم البرنامج",
     "Program Language": "لغة البرنامج",
     "Program Levels": "مستويات البرنامج",
+    "Program Universities": "جامعات البرنامج",
     "Universities": "الجامعات",
     "University": "الجامعة",
     "Add New University": "إضافة جامعة جديدة",
@@ -26,5 +27,6 @@
     "Yearly": "سنوي",
     "Other Universities": "جامعات أخرى",
     "Program Filter Results": "نتائج تصفية البرنامج",
-    "Result Found": "تم العثور على "
+    "Result Found": "تم العثور على ",
+    "University Price Start From": "أسعار الجامعة تبدأ من"
 }
